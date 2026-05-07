@@ -1,0 +1,42 @@
+name: Train Model
+on:
+ workflow_dispatch:
+   inputs:
+     criterion:
+       description: "The function to measure the quality of a split:"
+       default: gini
+       type: choice
+       options:
+         - gini
+         - entropy
+         - log_loss
+     max-depth:
+       description: "The maximum depth of the tree:"
+       type: number
+       default: 5
+jobs:
+ train:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Check out repository
+       uses: actions/checkout@v4
+
+
+     - name: Set up Python
+       uses: actions/setup-python@v5
+       with:
+         python-version: '3.13'
+         cache: 'pip'
+
+
+     - name: Install dependencies
+       run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+
+     - name: Train model
+       run: |
+         python main.py \
+           --criterion ${{ github.event.inputs.criterion }} \
+           --max-depth ${{ github.event.inputs.max-depth }}

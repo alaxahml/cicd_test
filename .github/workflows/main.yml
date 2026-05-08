@@ -69,5 +69,5 @@ jobs:
       - name: Train model
         run: |
           python main.py \
-            --criterion ${{ github.event.inputs.criterion }} \
-            --max-depth ${{ github.event.inputs.max-depth }}
+            --criterion "${{ github.event.inputs.criterion || 'gini' }}" \
+            --max-depth "${{ github.event.inputs.max-depth || '5' }}"

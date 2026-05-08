@@ -18,7 +18,7 @@ def load_data():
 
 
 def train(data, criterion, max_depth):
-   print("Training a DecisionTreeClassifier")
+print("Training a DecisionTreeClassifier")
 
 
    print("Unpacking training and evaluation data…")
